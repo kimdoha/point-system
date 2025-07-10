@@ -10,11 +10,6 @@ class UserNotFoundException(message: String? = null) : PointSystemException(
     message
 )
 
-class InvalidAmountException(message: String? = null) : PointSystemException(
-    ErrorCode.INVALID_CHARGE_AMOUNT,
-    message
-)
-
 class InsufficientPointException(message: String? = null) : PointSystemException(
     ErrorCode.INSUFFICIENT_POINT,
     message

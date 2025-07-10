@@ -52,8 +52,17 @@ object PointTestFixture {
     ) = PointHistory(id, userId, TransactionType.USE, amount, timeMillis)
 
     fun createHistoryList(userId: Long = VALID_USER_ID): List<PointHistory> = listOf(
-        createChargeHistory(1L, userId, MEDIUM_AMOUNT, BASE_TIME),
-        createUseHistory(2L, userId, -SMALL_AMOUNT, BASE_TIME + 1000L),
-        createChargeHistory(3L, userId, SMALL_AMOUNT, BASE_TIME + 2000L)
+        createChargeHistory(1L, userId, MEDIUM_AMOUNT, OLD_TIME),
+        createUseHistory(2L, userId, -SMALL_AMOUNT, OLD_TIME + 1000L),
+        createChargeHistory(3L, userId, SMALL_AMOUNT, OLD_TIME + 2000L)
     )
+
+    // JSON Requests
+    fun validChargeRequest(amount: Long = MEDIUM_AMOUNT): String = amount.toString()
+    fun validUseRequest(amount: Long = SMALL_AMOUNT): String = amount.toString()
+    fun invalidRequest(): String = NEGATIVE_AMOUNT.toString()
+    fun zeroAmountRequest(): String = ZERO_AMOUNT.toString()
+    fun largeAmountRequest(): String = LARGE_AMOUNT.toString()
+    fun maxAmountRequest(): String = MAX_AMOUNT.toString()
+    fun overMaxAmountRequest(): String = OVER_MAX_AMOUNT.toString()
 }
