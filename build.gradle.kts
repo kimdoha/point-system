@@ -1,5 +1,10 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
+val kotestVersion = "5.8.0"
+val mockkVersion = "1.13.8"
+val springMockkVersion = "4.0.2"
+val assertjVersion = "3.24.2"
+
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(libs.plugins.kotlin.spring)
@@ -24,8 +29,11 @@ dependencies {
     implementation(libs.spring.boot.starter.web)
     annotationProcessor(libs.spring.boot.configuration.processor)
     testImplementation(libs.spring.boot.starter.test)
-    testImplementation("io.kotest:kotest-runner-junit5-jvm")
-    testImplementation("io.kotest:kotest-assertions-core-jvm")
+
+    testImplementation("io.kotest:kotest-runner-junit5:$kotestVersion")
+    testImplementation("io.kotest:kotest-assertions-core:$kotestVersion")
+    testImplementation("io.mockk:mockk:$mockkVersion")
+    testImplementation("com.ninja-squad:springmockk:$springMockkVersion")
 }
 
 // about source and compilation
