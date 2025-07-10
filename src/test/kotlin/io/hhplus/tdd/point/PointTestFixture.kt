@@ -6,7 +6,7 @@ package io.hhplus.tdd.point
 object PointTestFixture {
     // User IDs
     const val VALID_USER_ID = 1L
-    const val ANOTHER_USER_ID = 2L
+    const val NEW_USER_ID = 2L
     const val INVALID_USER_ID_ZERO = 0L
     const val INVALID_USER_ID_NEGATIVE = -1L
 
@@ -61,8 +61,5 @@ object PointTestFixture {
     fun validChargeRequest(amount: Long = MEDIUM_AMOUNT): String = amount.toString()
     fun validUseRequest(amount: Long = SMALL_AMOUNT): String = amount.toString()
     fun invalidRequest(): String = NEGATIVE_AMOUNT.toString()
-    fun zeroAmountRequest(): String = ZERO_AMOUNT.toString()
-    fun largeAmountRequest(): String = LARGE_AMOUNT.toString()
     fun maxAmountRequest(): String = MAX_AMOUNT.toString()
-    fun overMaxAmountRequest(): String = OVER_MAX_AMOUNT.toString()
 }
