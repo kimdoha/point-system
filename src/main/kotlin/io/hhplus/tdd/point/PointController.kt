@@ -1,53 +1,63 @@
 package io.hhplus.tdd.point
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/point")
-class PointController {
-    private val logger: Logger = LoggerFactory.getLogger(javaClass)
-
-    /**
-     * TODO - 특정 유저의 포인트를 조회하는 기능을 작성해주세요.
-     */
+class PointController(
+    private val pointService: PointService,
+) {
     @GetMapping("{id}")
     fun point(
         @PathVariable id: Long,
     ): UserPoint {
-        return UserPoint(0, 0, 0)
+        return pointService.getPoint(id.validateUserId())
     }
 
-    /**
-     * TODO - 특정 유저의 포인트 충전/이용 내역을 조회하는 기능을 작성해주세요.
-     */
     @GetMapping("{id}/histories")
     fun history(
         @PathVariable id: Long,
     ): List<PointHistory> {
-        return emptyList()
+        return pointService.getHistories(id.validateUserId())
     }
 
-    /**
-     * TODO - 특정 유저의 포인트를 충전하는 기능을 작성해주세요.
-     */
     @PatchMapping("{id}/charge")
     fun charge(
         @PathVariable id: Long,
         @RequestBody amount: Long,
     ): UserPoint {
-        return UserPoint(0, 0, 0)
+        return pointService.charge(id.validateUserId(), amount.validateChargeAmount())
     }
 
-    /**
-     * TODO - 특정 유저의 포인트를 사용하는 기능을 작성해주세요.
-     */
     @PatchMapping("{id}/use")
     fun use(
         @PathVariable id: Long,
         @RequestBody amount: Long,
     ): UserPoint {
-        return UserPoint(0, 0, 0)
+        if(amount <= 0) {
+            throw IllegalArgumentException("사용 금액은 0보다 커야 합니다.")
+        }
+        return pointService.use(id.validateUserId(), amount.validateUseAmount())
+    }
+
+    private fun Long.validateChargeAmount(): Long {
+        if (this <= 0) {
+            throw IllegalArgumentException("충전 금액은 0보다 커야 합니다.")
+        }
+        return this
+    }
+
+    private fun Long.validateUseAmount(): Long {
+        if (this <= 0) {
+            throw IllegalArgumentException("사용 금액은 0보다 커야 합니다.")
+        }
+        return this
+    }
+
+    private fun Long.validateUserId(): Long {
+        if (this <= 0) {
+            throw IllegalArgumentException("사용자 ID는 0보다 커야 합니다.")
+        }
+        return this
     }
 }
